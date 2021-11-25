@@ -782,6 +782,12 @@ class SparqlQleverVisitor : public SparqlAutomaticVisitor {
       override {
     if (context->aggregate()) {
       return context->aggregate()->accept(this);
+    } else if (ad_utility::getLowercase(
+          context->children[0]->getText()) == "sqr") {
+      auto child = std::move(visitExpression(
+            context->expression()[0]).as<ExpressionPtr>());
+      return createExpression<sparqlExpression::SquareExpression>(
+          std::move(child));
     } else {
       throw SparqlParseException{
           "aggregates like COUNT are the only 'builtInCalls' that are "

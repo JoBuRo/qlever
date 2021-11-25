@@ -417,7 +417,8 @@ brackettedExpression
     ;
 
 
-builtInCall	  :  	  aggregate
+builtInCall	  :
+aggregate
 | STR '(' expression ')'
 | LANG '(' expression ')'
 | LANGMATCHES '(' expression ',' expression ')'
@@ -439,6 +440,7 @@ builtInCall	  :  	  aggregate
 | LCASE '(' expression ')'
 | ENCODE '_' FOR '_' URI '(' expression ')'
 | CONTAINS '(' expression ',' expression ')'
+| SQR '(' expression ')'
 | STRSTARTS '(' expression ',' expression ')'
 | STRENDS '(' expression ',' expression ')'
 | STRBEFORE '(' expression ',' expression ')'
@@ -623,6 +625,7 @@ LCASE : L C A S E;
 ENCODE : E N C O D E;
 FOR : F O R;
 CONTAINS : C O N T A I N S;
+SQR : S Q R;
 STRSTARTS : S T R S T A R T S;
 STRENDS : S T R E N D S;
 STRBEFORE : S T R B E F O R E;

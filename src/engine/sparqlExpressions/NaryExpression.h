@@ -156,6 +156,10 @@ inline auto unaryMinus = [](auto a) -> double { return -a; };
 using UnaryMinusExpression =
     NARY<1, FV<decltype(unaryMinus), NumericValueGetter>>;
 
+/// Squaring function.
+inline auto square = [](auto x) -> double { return x * x; };
+using SquareExpression = NARY<1, FV<decltype(square), NumericValueGetter>>;
+
 /// Multiplication.
 inline auto multiply = [](const auto& a, const auto& b) -> double {
   return a * b;
@@ -186,6 +190,7 @@ using detail::OrExpression;
 using detail::SubtractExpression;
 using detail::UnaryMinusExpression;
 using detail::UnaryNegateExpression;
+using detail::SquareExpression;
 
 }  // namespace sparqlExpression
 
