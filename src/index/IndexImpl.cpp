@@ -897,6 +897,14 @@ void IndexImpl::readConfiguration() {
   loadRequestedDataMember("num-subjects-normal", numSubjectsNormal_);
   loadRequestedDataMember("num-objects-normal", numObjectsNormal_);
   loadRequestedDataMember("num-triples-normal", numTriplesNormal_);
+
+  // Compute unique ID for this index.
+  //
+  // TODO: This is a simplistic way. It would be better to incorporate bytes
+  // from the index files.
+  indexId_ = absl::StrCat("#", getKbName(), ".", numTriplesNormal_, ".",
+                          numSubjectsNormal_, ".", numPredicatesNormal_, ".",
+                          numObjectsNormal_);
 }
 
 // ___________________________________________________________________________
