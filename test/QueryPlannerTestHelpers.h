@@ -15,6 +15,7 @@
 #include "engine/QueryExecutionTree.h"
 #include "engine/QueryPlanner.h"
 #include "engine/TransitivePath.h"
+#include "engine/Union.h"
 #include "gmock/gmock-matchers.h"
 #include "gmock/gmock.h"
 #include "parser/SparqlParser.h"
@@ -132,6 +133,9 @@ inline auto TransitivePathSideMatcher = [](TransitivePathSide side) {
                AD_FIELD(TransitivePathSide, subCol_, Eq(side.subCol_)),
                AD_FIELD(TransitivePathSide, outputCol_, Eq(side.outputCol_)));
 };
+
+// Match a Union
+inline auto Union = MatchTypeAndUnorderedChildren<::Union>;
 
 // Match a TransitivePath operation
 inline auto TransitivePath =

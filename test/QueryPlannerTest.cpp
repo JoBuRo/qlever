@@ -1116,6 +1116,35 @@ TEST(QueryPlannerTest, CartesianProductJoin) {
           scan("?x", "<b>", "?c")));
 }
 
+TEST(QueryPlannerTest, PropertyPathSequence) {
+  auto scan = h::IndexScanFromStrings;
+  auto qec = ad_utility::testing::getQec("<s> <p> <o>");
+  h::expect(
+      "SELECT ?s ?o WHERE {"
+      "?s <p>/<p> ?o }",
+      h::Join(scan("?s", "<p>", "?_qlever_internal_variable_query_planner_0"),
+              scan("?_qlever_internal_variable_query_planner_0", "<p>", "?o")),
+      qec);
+}
+
+TEST(QueryPlannerTest, PropertyPathUnion) {
+  auto scan = h::IndexScanFromStrings;
+  auto qec = ad_utility::testing::getQec("<s> <p> <o> . <s> <q> <o>");
+  h::expect(
+      "SELECT ?s ?o WHERE {"
+      "?s <p>|<q> ?o }",
+      h::Union(scan("?s", "<p>", "?o"), scan("?s", "<q>", "?o")), qec);
+}
+
+TEST(QueryPlannerTest, PropertyPathInverse) {
+  auto scan = h::IndexScanFromStrings;
+  auto qec = ad_utility::testing::getQec("<s> <p> <o>");
+  h::expect(
+      "SELECT ?s ?o WHERE {"
+      "?s ^<p> ?o }",
+      scan("?o", "<p>", "?s"), qec);
+}
+
 TEST(QueryPlannerTest, TransitivePathUnbound) {
   auto scan = h::IndexScanFromStrings;
   TransitivePathSide left{std::nullopt, 0, Variable("?x"), 0};
