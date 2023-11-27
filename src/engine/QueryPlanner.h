@@ -5,6 +5,7 @@
 //   2018-     Johannes Kalmbach (kalmbach@informatik.uni-freiburg.de)
 
 #pragma once
+#include <memory>
 #include <set>
 #include <vector>
 
@@ -261,25 +262,13 @@ class QueryPlanner {
   /**
    * @brief Returns a parsed query for the property path.
    */
-  [[nodiscard]] std::shared_ptr<ParsedQuery::GraphPattern> seedFromPropertyPath(
+  [[nodiscard]] std::unique_ptr<ParsedQuery::GraphPattern> seedFromPropertyPath(
       const TripleComponent& left, const PropertyPath& path,
       const TripleComponent& right);
 
-  [[nodiscard]] std::shared_ptr<ParsedQuery::GraphPattern> seedFromSequence(
-      const TripleComponent& left, const PropertyPath& path,
-      const TripleComponent& right);
-  [[nodiscard]] std::shared_ptr<ParsedQuery::GraphPattern> seedFromAlternative(
-      const TripleComponent& left, const PropertyPath& path,
-      const TripleComponent& right);
-  [[nodiscard]] std::shared_ptr<ParsedQuery::GraphPattern> seedFromTransitive(
+  [[nodiscard]] std::unique_ptr<ParsedQuery::GraphPattern> makeTransitive(
       const TripleComponent& left, const PropertyPath& path,
       const TripleComponent& right, size_t min, size_t max);
-  [[nodiscard]] std::shared_ptr<ParsedQuery::GraphPattern> seedFromInverse(
-      const TripleComponent& left, const PropertyPath& path,
-      const TripleComponent& right);
-  [[nodiscard]] std::shared_ptr<ParsedQuery::GraphPattern> seedFromIri(
-      const TripleComponent& left, const PropertyPath& path,
-      const TripleComponent& right);
 
   [[nodiscard]] Variable generateUniqueVarName();
 
