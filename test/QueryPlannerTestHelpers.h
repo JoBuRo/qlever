@@ -238,6 +238,8 @@ inline auto TransitivePath =
                             TransitivePathSideMatcher(right))));
     };
 
+inline auto Sort = MatchTypeAndUnorderedChildren<::Sort>;
+
 // Match a `Filter` operation. The matching of the expression is currently only
 // done via the descriptor.
 constexpr auto Filter = [](std::string_view descriptor,
