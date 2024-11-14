@@ -42,7 +42,7 @@ ENV CACHE_MAX_SIZE_GB 30
 ENV CACHE_MAX_SIZE_GB_SINGLE_ENTRY 5
 ENV CACHE_MAX_NUM_ENTRIES 1000
 # Need the shell to get the INDEX_PREFIX envirionment variable
-ENTRYPOINT ["/bin/sh", "-c", "exec ServerMain -i \"/index/${INDEX_PREFIX}\" -j 8 -m ${MEMORY_FOR_QUERIES} -c ${CACHE_MAX_SIZE_GB} -e ${CACHE_MAX_SIZE_GB_SINGLE_ENTRY} -k ${CACHE_MAX_NUM_ENTRIES} -p --access-token=token 7001 \"$@\"", "--"]
+ENTRYPOINT ["/bin/sh", "-c", "exec ServerMain -i \"/index/${INDEX_PREFIX}\" -j 8 -m ${MEMORY_FOR_QUERIES} -c ${CACHE_MAX_SIZE_GB} -e ${CACHE_MAX_SIZE_GB_SINGLE_ENTRY} -k ${CACHE_MAX_NUM_ENTRIES} -p 7001  --access-token=token \"$@\"", "--"]
 
 # Build image:  docker build -t qlever.master .
 
