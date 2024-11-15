@@ -125,11 +125,6 @@ nlohmann::json ExportQueryExecutionTrees::idTableToQLeverJSONArray(
         continue;
       }
       const auto& currentId = data(rowIndex, opt->columnIndex_);
-      auto& local = resultTable->localVocab();
-      auto sz = local.size();
-      LOG(INFO) << "Local size " << sz << std::endl;
-      auto* qec = qet.getQec();
-      LOG(INFO) << qec->getIndex().getVocab().size() << "end of bla size" << std::endl;
       const auto& optionalStringAndXsdType = idToStringAndType(
           qet.getQec()->getIndex(), currentId, resultTable->localVocab());
       if (!optionalStringAndXsdType.has_value()) {
@@ -473,9 +468,9 @@ ExportQueryExecutionTrees::selectQueryResultToStream(
         const auto& val = selectedColumnIndices[j].value();
         Id id = idTable(i, val.columnIndex_);
         auto optionalStringAndType =
-            idToStringAndType<format == MediaType::csv>(
-                qet.getQec()->getIndex(), id, resultTable->localVocab(),
-                escapeFunction);
+            idToStringAndType < format ==
+            MediaType::csv > (qet.getQec()->getIndex(), id,
+                              resultTable->localVocab(), escapeFunction);
         if (optionalStringAndType.has_value()) [[likely]] {
           co_yield optionalStringAndType.value().first;
         }
